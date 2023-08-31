@@ -1,11 +1,23 @@
 import { Layout, Space, Typography } from "antd";
 import { TeamOutlined, UserOutlined, LoginOutlined } from "@ant-design/icons";
 import styles from "./index.module.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Path } from "../../paths";
 import CustomButton from "../button";
+import { useDispatch, useSelector } from "react-redux";
+import { logout, selectUser } from "../../features/auth/authSlice";
 
 const Header = () => {
+  const user = useSelector(selectUser);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const onLogoutClick = () => {
+    dispatch(logout());
+    localStorage.removeItem("token");
+    navigate("/login");
+  };
+
   return (
     <Layout.Header className={styles.header}>
       <Space>
@@ -16,12 +28,23 @@ const Header = () => {
       </Space>
 
       <Space className={styles.rightButtons}>
-        <Link to={Path.login}>
-          <CustomButton type="text" icon={<LoginOutlined />}>
+        {user ? (
+          <CustomButton
+            type="text"
+            icon={<LoginOutlined />}
+            onClick={onLogoutClick}
+          >
             {" "}
-            Вхід{" "}
+            Вийти
           </CustomButton>
-        </Link>
+        ) : (
+          <Link to={Path.login}>
+            <CustomButton type="text" icon={<LoginOutlined />}>
+              {" "}
+              Вхід{" "}
+            </CustomButton>
+          </Link>
+        )}
 
         <Link to={Path.register}>
           <CustomButton type="text" icon={<UserOutlined />}>
