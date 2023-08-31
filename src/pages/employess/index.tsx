@@ -11,6 +11,7 @@ import { Path } from "../../paths";
 import { useSelector } from "react-redux";
 import { selectUser } from "../../features/auth/authSlice";
 import { useEffect } from "react";
+// import withPrivateRoute from "../../hoc/withPrivateRoute";
 
 const columns: ColumnsType<Employee> = [
   {
@@ -41,13 +42,13 @@ const Employees = () => {
     }
   }, [navigate, user]);
 
-  const goToAddUser = () => navigate(Path.employeeAdd)
+  const goToAddUser = () => navigate(Path.employeeAdd);
 
   return (
     <Layout>
       <CustomButton
         type="primary"
-        onClick={ goToAddUser }
+        onClick={goToAddUser}
         icon={<PlusCircleOutlined />}
       >
         Додати
@@ -67,5 +68,7 @@ const Employees = () => {
     </Layout>
   );
 };
+
+// export default withPrivateRoute(Employees, ["admin", "manager"]);
 
 export default Employees;

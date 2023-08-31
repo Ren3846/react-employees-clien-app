@@ -8,11 +8,16 @@ import { Path } from "./paths";
 import Login from "./pages/login/";
 import Register from "./pages/register/";
 import Home from "./pages/home";
+import Status from "./pages/status";
 
 import "./index.css";
 import { ConfigProvider, theme } from "antd";
 import { Auth } from "./features/auth/auth";
 import Employees from "./pages/employess";
+import AddEmployee from "./pages/add-employee";
+import Employee from "./pages/employee";
+
+
 
 const router = createBrowserRouter([
   {
@@ -30,6 +35,27 @@ const router = createBrowserRouter([
   {
     path: Path.employees,
     element: <Employees />,
+  },
+  {
+    path: Path.employeeAdd,
+    element: <AddEmployee />,
+  },
+  // {
+  //   path: Path.employeeAdd,
+  //   element: <PrivateRoute element={EditEmployee} />,
+  // },
+  
+  {
+    path: `${Path.status}/:status`,
+    element: <Status />,
+  },
+  {
+    path: `${Path.employee}/:id`,
+    element: <Employee />,
+  },
+  {
+    path: "*", 
+    element: <h1>404</h1>
   },
 ]);
 
