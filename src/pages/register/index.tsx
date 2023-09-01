@@ -25,7 +25,7 @@ const Register = () => {
     try {
       await registerUser(data).unwrap()
 
-      navigate('/')
+      navigate('/employees')
     } catch (err) {
       const maybeError = isErrorWithMessage(err)
 
